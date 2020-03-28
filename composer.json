@@ -121,7 +121,8 @@
             "Rector\\Twig\\": "rules/twig/src",
             "Rector\\TypeDeclaration\\": "rules/type-declaration/src",
             "Rector\\VendorLocker\\": "packages/vendor-locker/src",
-            "Rector\\ZendToSymfony\\": "rules/zend-to-symfony/src"
+            "Rector\\ZendToSymfony\\": "rules/zend-to-symfony/src",
+            "Rector\\Privatization\\": "rules/privatization/src"
         }
     },
     "autoload-dev": {
@@ -190,7 +191,8 @@
             "Rector\\Utils\\DocumentationGenerator\\": "utils/documentation-generator/src",
             "Rector\\Utils\\PHPStanAttributeTypeSyncer\\": "utils/phpstan-attribute-type-syncer/src",
             "Rector\\Utils\\PHPStanStaticTypeMapperChecker\\": "utils/phpstan-static-type-mapper-checker/src",
-            "Rector\\ZendToSymfony\\Tests\\": "rules/zend-to-symfony/tests"
+            "Rector\\ZendToSymfony\\Tests\\": "rules/zend-to-symfony/tests",
+            "Rector\\Privatization\\Tests\\": "rules/privatization/tests"
         },
         "classmap": [
             "tests/Source",

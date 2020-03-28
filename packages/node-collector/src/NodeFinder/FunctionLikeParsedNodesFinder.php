@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rector\NodeCollector\NodeFinder;
 
 use Nette\Utils\Strings;
-use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -91,7 +90,7 @@ final class FunctionLikeParsedNodesFinder
     }
 
     /**
-     * @todo deocpule
+     * @todo decouple
      */
     public function isStaticMethod(string $methodName, string $className): bool
     {
@@ -121,26 +120,6 @@ final class FunctionLikeParsedNodesFinder
         }
 
         return false;
-    }
-
-    /**
-     * @return MethodCall[]|StaticCall[]|Array_[]
-     */
-    public function findClassMethodCalls(ClassMethod $classMethod): array
-    {
-        /** @var string|null $className */
-        $className = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
-        if ($className === null) { // anonymous
-            return [];
-        }
-
-        /** @var string|null $methodName */
-        $methodName = $this->nodeNameResolver->getName($classMethod);
-        if ($methodName === null) {
-            return [];
-        }
-
-        return $this->parsedFunctionLikeNodeCollector->findByClassAndMethod($className, $methodName);
     }
 
     /**

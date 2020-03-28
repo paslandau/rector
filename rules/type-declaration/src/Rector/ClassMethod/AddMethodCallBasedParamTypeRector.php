@@ -14,6 +14,7 @@ use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeCollector\NodeFinder\MethodCallParsedNodesFinder;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 
 /**
@@ -28,9 +29,15 @@ final class AddMethodCallBasedParamTypeRector extends AbstractRector
      */
     private $typeFactory;
 
-    public function __construct(TypeFactory $typeFactory)
+    /**
+     * @var MethodCallParsedNodesFinder
+     */
+    private $methodCallParsedNodesFinder;
+
+    public function __construct(TypeFactory $typeFactory, MethodCallParsedNodesFinder $methodCallParsedNodesFinder)
     {
         $this->typeFactory = $typeFactory;
+        $this->methodCallParsedNodesFinder = $methodCallParsedNodesFinder;
     }
 
     public function getDefinition(): RectorDefinition
@@ -91,8 +98,7 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
-        $classMethodCalls = $this->functionLikeParsedNodesFinder->findClassMethodCalls($node);
-
+        $classMethodCalls = $this->methodCallParsedNodesFinder->findClassMethodCalls($node);
         $classParameterTypes = $this->getCallTypesByPosition($classMethodCalls);
 
         foreach ($classParameterTypes as $position => $argumentStaticType) {
