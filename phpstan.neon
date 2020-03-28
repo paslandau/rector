@@ -9,7 +9,7 @@ parameters:
     level: max
 
     # to allow installing with various phsptan versions without reporting old errors here
-#    reportUnmatchedIgnoredErrors: false
+    reportUnmatchedIgnoredErrors: false
 
     autoload_directories:
         - stubs
@@ -246,5 +246,4 @@ parameters:
         - '#Access to an undefined property PHPStan\\PhpDocParser\\Ast\\PhpDoc\\PhpDocTagValueNode\:\:\$description#'
 
         - '#Method Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector\:\:matchNotIdenticalToFalse\(\) should return PhpParser\\Node\\Expr\\FuncCall\|null but returns PhpParser\\Node\\Expr#'
-        - '#Method Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector\:\:matchPossibleFuncCallToFalseOrZero\(\) should return PhpParser\\Node\\Expr\\FuncCall\|null but returns PhpParser\\Node\\Expr#'
         - '#Method Rector\\NodeCollector\\StaticAnalyzer\:\:hasStaticAnnotation\(\) has parameter \$reflectionClass with generic class ReflectionClass but does not specify its types\: T#'
