@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rector\NodeCollector\NodeFinder;
 
-use Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -14,7 +13,6 @@ use Rector\NodeCollector\NodeCollector\ParsedFunctionLikeNodeCollector;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use ReflectionClass;
 
 final class FunctionLikeParsedNodesFinder
 {
@@ -87,39 +85,6 @@ final class FunctionLikeParsedNodesFinder
     public function findMethod(string $methodName, string $className): ?ClassMethod
     {
         return $this->parsedFunctionLikeNodeCollector->findMethod($className, $methodName);
-    }
-
-    /**
-     * @todo decouple
-     */
-    public function isStaticMethod(string $methodName, string $className): bool
-    {
-        $methodNode = $this->findMethod($methodName, $className);
-        if ($methodNode !== null) {
-            return $methodNode->isStatic();
-        }
-
-        // could be static in doc type magic
-        // @see https://regex101.com/r/tlvfTB/1
-        if (class_exists($className) || trait_exists($className)) {
-            $reflectionClass = new ReflectionClass($className);
-            if (Strings::match(
-                (string) $reflectionClass->getDocComment(),
-                '#@method\s*static\s*(.*?)\b' . $methodName . '\b#'
-            )) {
-                return true;
-            }
-
-            // probably magic method → we don't know
-            if (! method_exists($className, $methodName)) {
-                return false;
-            }
-
-            $methodReflection = $reflectionClass->getMethod($methodName);
-            return $methodReflection->isStatic();
-        }
-
-        return false;
     }
 
     /**

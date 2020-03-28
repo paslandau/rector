@@ -1,4 +1,4 @@
-# All 472 Rectors Overview
+# All 473 Rectors Overview
 
 - [Projects](#projects)
 - [General](#general)
@@ -48,6 +48,7 @@
 - [PhpDeglobalize](#phpdeglobalize)
 - [PhpSpecToPHPUnit](#phpspectophpunit)
 - [Polyfill](#polyfill)
+- [Privatization](#privatization)
 - [Refactoring](#refactoring)
 - [RemovingStatic](#removingstatic)
 - [Renaming](#renaming)
@@ -7809,6 +7810,35 @@ Remove php version checks if they are passed
 -    return 'is PHP 7.2+';
 -}
 +return 'is PHP 7.2+';
+```
+
+<br>
+
+## Privatization
+
+### `PrivatizeLocalOnlyMethodRector`
+
+- class: [`Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector`](/../master/rules/privatization/src/Rector/ClassMethod/PrivatizeLocalOnlyMethodRector.php)
+- [test fixtures](/../master/rules/privatization/tests/Rector/ClassMethod/PrivatizeLocalOnlyMethodRector/Fixture)
+
+Privatize local-only use methods
+
+```diff
+ class SomeClass
+ {
+     /**
+      * @api
+      */
+     public function run()
+     {
+         return $this->useMe();
+     }
+
+-    public function useMe()
++    private function useMe()
+     {
+     }
+ }
 ```
 
 <br>
